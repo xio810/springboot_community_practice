@@ -14,8 +14,10 @@ public class ArticleRepository {
 	private Article article1 = new Article(1, "title1", "body1");
 	private Article article2 = new Article(2, "title2", "body2");
 	private Article article3 = new Article(3, "title3", "body3");
+	private int lastId;
 
 	public ArticleRepository() {
+		lastId = 3;
 		articles = new ArrayList<>();
 		articles.add(article1);
 		articles.add(article2);
@@ -33,6 +35,16 @@ public class ArticleRepository {
 			}
 		}
 		return null;
+	}
+
+	public Article writeArticle(String title, String body) {
+		int id = lastId + 1;
+		
+		Article article = new Article(id,title,body);
+		articles.add(article);
+		lastId = id;
+		
+		return article;
 	}
 
 }

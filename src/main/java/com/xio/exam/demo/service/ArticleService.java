@@ -24,4 +24,8 @@ public class ArticleService {
 		return articleRepository.getArticle(id);
 	}
 	
+	public Article writeArticle(String title, String body) {
+		return articleRepository.writeArticle(title,body);
+	}
+	
 }
