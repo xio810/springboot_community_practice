@@ -1,5 +1,6 @@
 package com.xio.exam.demo.controller;
 
+//controller
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,14 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public Article getArticle(int id) {
-		return articleService.getArticle(id);
+	public Object getArticle(int id) {
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return id + "번 게시물은 존재하지 않습니다.";
+		}
+
+		return article;
 	}
 
 	@RequestMapping("/usr/article/doAdd")
@@ -36,7 +43,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-		Article article = getArticle(id);
+		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return id + " 번 게시물은 존재하지 않습니다 ";
@@ -49,7 +56,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(int id, String title, String body) {
-		Article article = getArticle(id);
+		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return id + " 번 게시물은 존재하지 않습니다 ";
