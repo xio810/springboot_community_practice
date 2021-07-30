@@ -10,7 +10,7 @@ import com.xio.exam.demo.vo.Article;
 
 @Service
 public class ArticleService {
-	@Autowired
+	
 	private ArticleRepository articleRepository;
 
 	public ArticleService(ArticleRepository articleRepository) {
