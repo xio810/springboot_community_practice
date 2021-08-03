@@ -9,19 +9,34 @@ import com.xio.exam.demo.vo.Member;
 public class MemberService {
 
 	private MemberRepository memberRepository;
-	
+
 	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
 	}
 
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
-		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		Member oldMember = getMemberByLoginId(loginId);
+		
+		if(oldMember != null) {
+			return -1;
+		}
+		
+		/////
+		memberRepository.join(loginId , loginPw , name, nickname, cellphoneNo, email);
+		
 		return memberRepository.getLastInsertId();
 	}
 
-	public Member getMemberById(int id) {
+	private Member getMemberByLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
+	}
 
+	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
+
+	
+
 
 }

@@ -20,17 +20,26 @@ public interface MemberRepository {
 			cellphoneNo = #{cellphoneNo},
 			email = #{email}
 			""")
-	public void join(@Param("loginId") String loginId, @Param("loginPw") String loginPw, @Param("name") String name,
-			@Param("nickname") String nickname,@Param("cellphoneNo")  String cellphoneNo,@Param("email")  String email);
-	
+	void join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email);
+
 	@Select("""
-			select last_insert_id()
+			select last_insert_id();
 			""")
 	public int getLastInsertId();
 	
 	@Select("""
-			select * from `member`
+			select *
+			from `member`
 			where id = #{id}
 			""")
-	public Member getMemberById(int id);
+	Member getMemberById(@Param("id") int id);
+	
+	@Select("""
+			select *
+			from `member`
+			where loginId = #{loginId}
+			""")
+	Member getMemberByLoginId(@Param("loginId") String loginId);
+
+	
 }
