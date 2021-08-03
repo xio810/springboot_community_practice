@@ -26,14 +26,14 @@ public interface MemberRepository {
 			select last_insert_id();
 			""")
 	public int getLastInsertId();
-	
+
 	@Select("""
 			select *
 			from `member`
 			where id = #{id}
 			""")
 	Member getMemberById(@Param("id") int id);
-	
+
 	@Select("""
 			select *
 			from `member`
@@ -41,5 +41,4 @@ public interface MemberRepository {
 			""")
 	Member getMemberByLoginId(@Param("loginId") String loginId);
 
-	
 }
