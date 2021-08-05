@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xio.exam.demo.service.MemberService;
 import com.xio.exam.demo.util.Ut;
 import com.xio.exam.demo.vo.Member;
+import com.xio.exam.demo.vo.ResultData;
 
 @Controller
 public class UsrMemberController {
@@ -21,36 +22,33 @@ public class UsrMemberController {
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
-		if (loginId == null || loginId.trim().length() == 0) {
-			return "id입력 ";
+		if (Ut.empty(loginId)) {
+			return ResultData.from("F-1", "loginId을 입력해주세요.");
 		}
 		if (Ut.empty(loginPw)) {
-			return "pw입력 ";
+			return ResultData.from("F-2", "password을 입력해주세요.");
 		}
 		if (Ut.empty(name)) {
-			return "name입력 ";
+			return ResultData.from("F-3", "name을 입력해주세요.");
 		}
 		if (Ut.empty(nickname)) {
-			return "nickname입력 ";
+			return ResultData.from("F-4", "nickname을 입력해주세요.");
 		}
 		if (Ut.empty(cellphoneNo)) {
-			return "cellphoneNo입력 ";
+			return ResultData.from("F-5", "cellphoneNo을 입력해주세요.");
 		}
 		if (Ut.empty(email)) {
-			return "email입력 ";
+			return ResultData.from("F-6", "email을 입력해주세요.");
 		}
 		
-		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
-		if (id == -1) {
-			return "아이디중복 ";
+		if (joinRd.isFail()) {
+			return joinRd;
 		}
-		if(id == -2) {
-			return "이름과 이메일 중복";
-		}
-		Member member = memberService.getMemberById(id);
+		Member member = memberService.getMemberById((int) joinRd.getData1());
 		
-		return member;
+		return ResultData.newData(joinRd, member);
 	}
 
 }
