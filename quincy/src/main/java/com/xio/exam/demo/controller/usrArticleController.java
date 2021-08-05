@@ -41,12 +41,20 @@ public class usrArticleController {
 	////doAdd/////
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public Article doAdd(String title, String body) {
-		int id = articleService.writeArticle(title, body);
+	public ResultData doAdd(String title, String body) {
+		if(Ut.empty(title)) {
+			return ResultData.from("F-1", "title을 입력해주세요.");
+		}
+		if (Ut.empty(body)) {
+			return ResultData.from("F-2", "body를 입력해주세요.");
+		}
+		
+		ResultData resultDataRd = articleService.writeArticle(title, body);
+		int id = (int) resultDataRd.getData1();
 		
 		Article article = articleService.getArticle(id);
 		
-		return article;
+		return ResultData.from(resultDataRd.getResultCode(), resultDataRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
