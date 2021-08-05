@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xio.exam.demo.service.ArticleService;
+import com.xio.exam.demo.util.Ut;
 import com.xio.exam.demo.vo.Article;
+import com.xio.exam.demo.vo.ResultData;
 
 @Controller
 public class usrArticleController {
@@ -23,19 +25,20 @@ public class usrArticleController {
 	public List<Article> getArticles() {
 		return articleService.getArticles();
 	}
-
+	////getArticle/////
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public Object getArticle(int id) {
+	public ResultData getArticle(int id) {
 		Article article = articleService.getArticle(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 없습니다.";
+			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		return articleService.getArticle(id);
+		return ResultData.from("S-1", Ut.f("%d번 게시물 입니다.", id), article);
 	}
 
+	////doAdd/////
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {

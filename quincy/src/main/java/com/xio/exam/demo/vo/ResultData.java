@@ -10,11 +10,15 @@ public class ResultData {
 	@Getter
 	private Object data1;
 
-	public ResultData() {
+	private ResultData() {
 
 	}
 
-	private static ResultData from(String resultCode, String msg, Object data1) {
+	public static ResultData from(String resultCode, String msg) {
+		return from(resultCode, msg, null);
+	}
+
+	public static ResultData from(String resultCode, String msg, Object data1) {
 		ResultData rd = new ResultData();
 
 		rd.resultCode = resultCode;
