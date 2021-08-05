@@ -21,36 +21,36 @@ public class UsrMemberController {
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
-		if (Ut.empty(loginId)) {
-			return "loginId를 입력해주세요.";
+		if (loginId == null || loginId.trim().length() == 0) {
+			return "id입력 ";
 		}
 		if (Ut.empty(loginPw)) {
-			return "loginPw를 입력해주세요.";
+			return "pw입력 ";
 		}
 		if (Ut.empty(name)) {
-			return "name를 입력해주세요.";
+			return "name입력 ";
 		}
 		if (Ut.empty(nickname)) {
-			return "nickname를 입력해주세요.";
+			return "nickname입력 ";
 		}
 		if (Ut.empty(cellphoneNo)) {
-			return "전화번호를 입력해주세요.";
+			return "cellphoneNo입력 ";
 		}
 		if (Ut.empty(email)) {
-			return "email를 입력해주세요.";
-		}
-
-		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-
-		if (id == -1) {
-			return Ut.f("(%s)는 사용중 입니다.", loginId);
+			return "email입력 ";
 		}
 		
-		if (id == -2) {
-			return Ut.f("(%s)과(%s)는 사용중 입니다.", name, email);
+		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		
+		if (id == -1) {
+			return "아이디중복 ";
+		}
+		if(id == -2) {
+			return "이름과 이메일 중복";
 		}
 		Member member = memberService.getMemberById(id);
-
+		
 		return member;
 	}
+
 }

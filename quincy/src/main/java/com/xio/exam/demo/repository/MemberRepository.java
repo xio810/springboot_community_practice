@@ -9,6 +9,7 @@ import com.xio.exam.demo.vo.Member;
 
 @Mapper
 public interface MemberRepository {
+
 	@Insert("""
 			insert into `member`
 			set regDate = now(),
@@ -47,6 +48,8 @@ public interface MemberRepository {
 			where name = #{name}
 			and email = #{email}
 			""")
-	Member getMemberByNameAndEmail(@Param("name") String name,@Param("email")  String email);
+	Member getMemberByNameAndEmail(@Param("name") String name,@Param("email") String email);
+	
+	
 
 }

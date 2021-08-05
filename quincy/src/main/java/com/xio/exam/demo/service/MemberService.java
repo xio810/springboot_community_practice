@@ -14,21 +14,21 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
+
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 		Member oldMember = getMemberByLoginId(loginId);
-
+		
 		if (oldMember != null) {
 			return -1;
 		}
+		oldMember = getMemberByNameAndEmail(name, email); 
 		
-		oldMember = getMemberByNameAndEmail(name, email);
-		
-		if(oldMember != null) {
+		if (oldMember != null) {
 			return -2;
 		}
-		/////
+				
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-
+		
 		return memberRepository.getLastInsertId();
 	}
 
@@ -36,12 +36,16 @@ public class MemberService {
 		return memberRepository.getMemberByNameAndEmail(name,email);
 	}
 
+
 	private Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 
+
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
+	
 
 }
