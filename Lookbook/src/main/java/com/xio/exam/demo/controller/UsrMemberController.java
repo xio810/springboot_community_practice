@@ -55,7 +55,7 @@ public class UsrMemberController {
 
 		return member;
 	}
-	
+
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public Object doLogin(HttpSession httpSession, String loginId, String loginPw) {
@@ -91,4 +91,23 @@ public class UsrMemberController {
 
 		return Ut.f("%s님 환영합니다.", member.getNickname());
 	}
+
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public Object doLogout(HttpSession httpSession) {
+		boolean isLogined = false;
+
+		if (httpSession.getAttribute("loginedMemberId") == null) {
+			isLogined = true;
+		}
+
+		if (isLogined) {
+			return "이미 로그아웃 상태입니다.";
+		}
+
+		httpSession.removeAttribute("loginedMemberId");
+
+		return "로그아웃 되었습니다.";
+	}
+
 }
