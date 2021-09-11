@@ -1,0 +1,52 @@
+@font-face {
+		font-family: 'NEXONFootballGothicBA1';
+		src:
+				url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff')
+				format('woff');
+		font-weight: normal;
+		font-style: normal;
+}
+
+@font-face { @font-face {
+		font-family: 'IBMPlexSansKR-Regular';
+		src:
+				url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
+				format('woff');
+		font-weight: normal;
+		font-style: normal;
+}
+
+}
+html>body {
+		font-family: 'IBMPlexSansKR-Regular';
+}
+
+/* 라이브러리 */
+.table-box-type-1>table {
+		width: 100%;
+}
+
+.table-box-type-1>table th, .table-box-type-1>table td {
+		border: 1px solid black;
+		padding: 10px;
+}
+
+.btn-text-link {
+		color: black;
+}
+
+.btn-text-link:hover {
+		text-decoration: underline;
+}
+
+.btn-text-link:visited {
+		color: #66D7C6;
+}
+/* 커스텀 */
+body {
+		min-width: 800px;
+}
+
+.bg-pink {
+		background-color: pink;
+}
